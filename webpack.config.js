@@ -8,6 +8,21 @@ export default async () => {
   let json = await response.json();
   let characters = json['results'];
   console.log(characters);
+
+  let pages = [];
+  characters.forEach(character => {
+    let page = new HtmlWebpackPlugin({
+      template: "./src/character.njk",
+      filename: "character_" + character.id + ".html",
+      templateParameters: {
+        character
+      }
+    });
+    pages.push(page);
+  });
+
+
+
   return {
     entry: "./src/index.js",
     output: {
@@ -62,9 +77,10 @@ export default async () => {
         }
       }),
       new HtmlWebpackPlugin({
-        filename: 'about.html',
+        filename: './about.html',
         template: './src/about.njk',
       }),
+      ...pages
     ],
   };
 }
