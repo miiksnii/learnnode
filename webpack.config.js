@@ -21,8 +21,6 @@ export default async () => {
     pages.push(page);
   });
 
-
-
   return {
     entry: "./src/index.js",
     output: {
@@ -73,7 +71,7 @@ export default async () => {
         template: './src/index.njk',
         templateParameters: {
           name: "Kaspar",
-          characters, //characters: characters
+          characters, //characters: characters,
         }
       }),
       new HtmlWebpackPlugin({
