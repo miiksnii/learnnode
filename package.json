@@ -2,7 +2,7 @@
   "name": "learnnode",
   "version": "1.0.0",
   "description": "learning noe",
-  "main": "index.js",
+  "main": "main.js",
   "type": "module",
   "scripts": {
     "dev": "webpack --mode=development",
