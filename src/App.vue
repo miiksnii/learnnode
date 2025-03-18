@@ -1,14 +1,14 @@
 <script setup>
 
 import {ref} from 'vue';
-
+import Modal from './components'
 
 let modalActive = ref(false);
 
 document.body.addEventListener('keydown', event => {
   console.log(event);
   if(event.key === "Escape"){
-    modalActive.value = false
+    emit('close');
   }
 })
 
@@ -20,18 +20,11 @@ document.body.addEventListener('keydown', event => {
 <div class="container">
   <section class="section">
     <button class="button is-primary" @click="modalActive=true">Modal Active</button>
+    <button class="button is-warning is-outlined ml-2" @click="modalActive=true">Modal 2 Active</button>
   </section>
 
 </div>
-<div class="modal" :class="{'is-active': modalActive}">
-  <div class="modal-background" @click="modalActive=false"></div>
-  <div class="modal-content">
-    <p class="image is-4by3">
-      <img src="https://bulma.io/assets/images/placeholders/1280x960.png" alt="">
-    </p>
-  </div>
-  <button class="modal-close is-large" aria-label="close"></button>
-</div>
+<Modal :active="modalActive" @close="modalActive=false"></Modal>
 </template>
 
 <style>
