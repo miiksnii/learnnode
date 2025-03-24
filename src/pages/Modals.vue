@@ -1,8 +1,8 @@
 <script setup>
 
 import {ref} from 'vue';
-import Modal from './components/Modal.vue';
-import ImgModal from './components/imgModal.vue';
+import Modal from '../components/Modal.vue';
+import ImgModal from '../components/imgModal.vue';
 
 
 
