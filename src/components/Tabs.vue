@@ -9,14 +9,23 @@ active.value = key;
 emit('change', key);
 }
 
+import { RouterLink, useRoute, useRouter } from 'vue-router';
+
+const router = useRouter();
+const route = useRoute();
+
+console.log(router.getRoutes(), route);
+
+
 </script>
 
 <template>
 
   <div class="tabs is-centered">
     <ul>
-      <li v-for="(item,key) in items" :class="{ 'is-active': key==active }" @click="setActive(key)"><a>{{ item }}</a></li>    
+      <li v-for="(item) in $router.getRoutes()" :class="{ 'is-active': item.path === $route.path }">
+        <RouterLink :to="item.path">{{ item.name }}</RouterLink>
+      </li>    
     </ul>
   </div>
-
 </template>
