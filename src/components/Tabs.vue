@@ -1,14 +1,5 @@
 <script setup>
 import {ref} from 'vue';
-
-defineProps(['items']);
-const emit = defineEmits(['change']);
-let active = ref(-1);
-function setActive(key){
-active.value = key;
-emit('change', key);
-}
-
 import { RouterLink, useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
