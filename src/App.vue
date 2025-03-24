@@ -1,33 +1,7 @@
 <script setup>
-
-import {ref} from 'vue';
-import Modal from './components/Modal.vue';
-
-
-
-let modalActive = ref(false);
-let modalActive2 = ref(false);
-
-document.body.addEventListener('keydown', event => {
-  console.log(event);
-  if(event.key === "Escape"){
-    emit('close');
-  }
-})
+import Tabs from './components/Tabs.vue';
+let titels = ['Item1', 'Item2', 'Item3', 'Item4'];
 </script>
 <template>
-
-<div class="container">
-  <section class="section">
-    <button class="button is-primary" @click="modalActive=true">Modal Active</button>
-    <button class="button is-warning is-outlined ml-2" @click="modalActive2=true">Modal 2 Active</button>
-  </section>
-
-</div>
-<Modal :active="modalActive" @close="modalActive=false"></Modal>
-<Modal :active="modalActive2" @close="modalActive2=false"></Modal>
+<Tabs :items="titels"></Tabs>
 </template>
-
-<style>
-
-</style>
