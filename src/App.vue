@@ -8,6 +8,10 @@ import { RouterView } from 'vue-router';
 </script>
 <template>
 <Tabs></Tabs>
+<div class="container">
+<section class="section">
 <RouterView></RouterView>
+</section>
+</div>
 </template>
 
