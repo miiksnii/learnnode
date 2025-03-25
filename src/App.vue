@@ -10,7 +10,9 @@ import { RouterView } from 'vue-router';
 <Tabs></Tabs>
 <div class="container">
 <section class="section">
-<RouterView></RouterView>
+    <Suspense>
+        <RouterView></RouterView>
+    </Suspense>
 </section>
 </div>
 </template>
