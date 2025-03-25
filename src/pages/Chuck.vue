@@ -1,16 +1,18 @@
 <script setup>
 import { ref } from 'vue';
-
+import axios from 'axios';
 
 let joke = ref(" ");
 
-let response = await fetch("https://api.chucknorris.io/jokes/random");
-let data = await response.json();
+let response = await axios.get("https://api.chucknorris.io/jokes/random").then(res => {
+    joke.value = res.data.value;
+}).catch(err=>{
+    console.log(err);
+})
 
-joke.value = data.value;
+
 
 </script>
-<template>
-    
+<template>    
     {{ joke }}
 </template>
