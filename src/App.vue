@@ -29,49 +29,37 @@ function updateActive(val) {
 }
 
 function startEvent(key) {
-    console.log("setse");
     tabs[key].event();
 }
 
-
+let token = ref(0);
 </script>
 
 <template>
 
-    <Tabs :tabs="tabs" :active="active" @update:active="updateActive" @update:eventKey="startEvent" />
+    <Tabs :tabs="tabs" :active="active" @update:active="updateActive" @update:eventKey="startEvent"/>
 
     <div class="container mt-5">
-
         <!-- login area -->
         <div class="box" :class="{ 'is-hidden': !isCurriculumVisible }">
             <!-- Item 1 -->
             <div class="collapsible-item is-flex is-justify-content-center is-align-items-center">
-                <Login />
+                <Login @auth="val => token = val"/>
             </div>
         </div>
 
-
         <!-- Tasks box -->
         <div class="box tasks">
-            <Tasks></Tasks>
-
+            <Tasks :token="token"></Tasks>
         </div>
     </div>
 </template>
 
 <style scoped>
-
-
-
-/* In your <style> section */
-.box {
-    box-shadow: none !important;
-}
-
-
 /* Transition effect for box appearance */
 .box {
     transition: opacity 0.5s ease, transform 0.5s ease;
+    box-shadow: none !important;
 }
 
 .box.is-hidden {

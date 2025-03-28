@@ -1,10 +1,32 @@
 <script setup>
 
+const url = "https://demo2.z-bit.ee/"
+
+defineEmits(['auth']);
+
 //prevent login button from working
-const handleLogin = (e) => {
+const handleLogin = (e,) => {
     e.preventDefault(); // Stop page reload
-    const token = document.getElementById("token").value;
-    console.log("Token:", token); // Replace with real login logic
+    const password = document.getElementById("password").value;
+    const username = document.getElementById("username").value;
+
+    const data = {
+        "username": username,
+        "password": password,
+    }
+
+    //gets the users token
+    fetch(url + "/users/get-token", {
+    method: "POST", // or "POST"
+    body: JSON.stringify(data),
+})
+  .then(res => res.json())
+  .then(data => { 
+    //send the access token upwards
+    emit("auth", data.access_token);
+   })
+  .catch(err => { console.log(err);});
+
 };
 
 </script>
@@ -28,14 +50,6 @@ const handleLogin = (e) => {
                 </div>
             </div>
 
-            <!-- Token Field -->
-            <div class="field">
-                <label class="label" for="token">Token</label>
-                <div class="control">
-                    <input class="input" type="text" id="token" name="token" placeholder="Your account token" required>
-                </div>
-            </div>
-
             <!-- Submit Button -->
             <div class="field is-grouped is-grouped-centered">
                 <div class="control">
@@ -46,7 +60,7 @@ const handleLogin = (e) => {
     </div>
 </template>
 
-<style>
+<style scoped> 
 .login-container {
   width: 100%;
   max-width: 500px;
