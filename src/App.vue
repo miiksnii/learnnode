@@ -2,65 +2,72 @@
 import { ref } from 'vue';
 import Login from './components/Login.vue';
 import Tasks from './components/Tasks.vue';
+import Tabs from './components/Tabs.vue';
 
 // State to control the visibility of the curriculum box
 const isCurriculumVisible = ref(false);
+
+
+
+let active = ref(-1);
+let user_data = {
+    auth_token: ""
+}
 
 // Toggle function to change visibility
 const toggleCurriculumBox = () => {
     isCurriculumVisible.value = !isCurriculumVisible.value;
 };
 
-let user_data = {
-    auth_token: ""
+let tabs = [
+    { name: "Login", event: toggleCurriculumBox },
+
+];
+
+function updateActive(val) {
+    active.value = val;
 }
+
+function startEvent(key) {
+    console.log("setse");
+    tabs[key].event();
+}
+
 
 </script>
 
 <template>
-    <div class="container mt-5">
 
-        <!-- Button to Toggle the Entire Box -->
-        <button class="button is-primary mb-3" @click="toggleCurriculumBox"
-            :class="{ 'is-active': isCurriculumVisible }">
-            Login area
-        </button>
+    <Tabs :tabs="tabs" :active="active" @update:active="updateActive" @update:eventKey="startEvent" />
+
+    <div class="container mt-5">
 
         <!-- login area -->
         <div class="box" :class="{ 'is-hidden': !isCurriculumVisible }">
             <!-- Item 1 -->
-            <div class="collapsible-item">
-                <Login></Login>
+            <div class="collapsible-item is-flex is-justify-content-center is-align-items-center">
+                <Login />
             </div>
         </div>
 
 
         <!-- Tasks box -->
         <div class="box tasks">
-            <Tasks :auth=""></Tasks>
+            <Tasks></Tasks>
 
         </div>
     </div>
 </template>
 
 <style scoped>
+
+
+
 /* In your <style> section */
 .box {
     box-shadow: none !important;
 }
 
-/* Transition effect for button */
-.button {
-    transition: all 0.3s ease;
-    /* Smooth transition for all properties */
-}
-
-.button:hover {
-    transform: scale(1.1);
-    /* Make the button slightly bigger on hover */
-    background-color: #007bff;
-    /* Darker blue background on hover */
-}
 
 /* Transition effect for box appearance */
 .box {
@@ -76,5 +83,21 @@ let user_data = {
 /* Optional: Give the box a little shadow when it's visible */
 .box:not(.is-hidden) {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+</style>
+
+<style>
+/* Transition effect for button */
+.button {
+    transition: all 0.3s ease;
+    /* Smooth transition for all properties */
+}
+
+.button:hover {
+    transform: scale(1.05);
+    /* Make the button slightly bigger on hover */
+    background-color: #007bff;
+    /* Darker blue background on hover */
+    color: white;
 }
 </style>

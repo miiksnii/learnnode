@@ -8,17 +8,15 @@ const handleLogin = (e) => {
 };
 
 </script>
-
 <template>
     <div class="login-container">
         <h1 class="title has-text-left">Login</h1>
-        <form id="loginForm" @submit="handleLogin">
+        <form id="loginForm" class="is-flex is-flex-direction-column" @submit="handleLogin">
             <!-- Username Field -->
             <div class="field">
                 <label class="label" for="username">Username</label>
                 <div class="control">
-                    <input class="input" type="text" id="username" name="username" placeholder="your.name@gmail.com"
-                        readonly>
+                    <input class="input" type="text" id="username" name="username" placeholder="your.name@gmail.com">
                 </div>
             </div>
 
@@ -26,7 +24,7 @@ const handleLogin = (e) => {
             <div class="field">
                 <label class="label" for="password">Password</label>
                 <div class="control">
-                    <input class="input" type="password" id="password" name="password" placeholder="password" readonly>
+                    <input class="input" type="password" id="password" name="password" placeholder="password">
                 </div>
             </div>
 
@@ -47,3 +45,11 @@ const handleLogin = (e) => {
         </form>
     </div>
 </template>
+
+<style>
+.login-container {
+  width: 100%;
+  max-width: 500px;
+}
+
+</style>
