@@ -1,19 +1,80 @@
 <script setup>
 import { ref } from 'vue';
-import Tabs from './components/Tabs.vue';
-import { RouterView } from 'vue-router';
+import Login from './components/Login.vue';
+import Tasks from './components/Tasks.vue';
 
-//date 18 2025
- 
+// State to control the visibility of the curriculum box
+const isCurriculumVisible = ref(false);
+
+// Toggle function to change visibility
+const toggleCurriculumBox = () => {
+    isCurriculumVisible.value = !isCurriculumVisible.value;
+};
+
+let user_data = {
+    auth_token: ""
+}
+
 </script>
+
 <template>
-<Tabs></Tabs>
-<div class="container">
-<section class="section">
-    <Suspense>
-        <RouterView></RouterView>
-    </Suspense>
-</section>
-</div>
+    <div class="container mt-5">
+
+        <!-- Button to Toggle the Entire Box -->
+        <button class="button is-primary mb-3" @click="toggleCurriculumBox"
+            :class="{ 'is-active': isCurriculumVisible }">
+            Login area
+        </button>
+
+        <!-- login area -->
+        <div class="box" :class="{ 'is-hidden': !isCurriculumVisible }">
+            <!-- Item 1 -->
+            <div class="collapsible-item">
+                <Login></Login>
+            </div>
+        </div>
+
+
+        <!-- Tasks box -->
+        <div class="box tasks">
+            <Tasks :auth=""></Tasks>
+
+        </div>
+    </div>
 </template>
 
+<style scoped>
+/* In your <style> section */
+.box {
+    box-shadow: none !important;
+}
+
+/* Transition effect for button */
+.button {
+    transition: all 0.3s ease;
+    /* Smooth transition for all properties */
+}
+
+.button:hover {
+    transform: scale(1.1);
+    /* Make the button slightly bigger on hover */
+    background-color: #007bff;
+    /* Darker blue background on hover */
+}
+
+/* Transition effect for box appearance */
+.box {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.box.is-hidden {
+    opacity: 0;
+    transform: scale(0.95);
+    /* Optionally scale it down when hidden */
+}
+
+/* Optional: Give the box a little shadow when it's visible */
+.box:not(.is-hidden) {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+</style>
