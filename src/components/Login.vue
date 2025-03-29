@@ -40,7 +40,7 @@ const handleLogin = (e,) => {
             <div class="field">
                 <label class="label" for="username">Username</label>
                 <div class="control">
-                    <input class="input" type="text" id="username" name="username" placeholder="your.name@gmail.com">
+                    <input class="input" type="text" id="username" placeholder="your.name@gmail.com">
                 </div>
             </div>
 
@@ -48,7 +48,7 @@ const handleLogin = (e,) => {
             <div class="field">
                 <label class="label" for="password">Password</label>
                 <div class="control">
-                    <input class="input" type="password" id="password" name="password" placeholder="password">
+                    <input class="input" type="password" id="password" placeholder="password">
                 </div>
             </div>
 

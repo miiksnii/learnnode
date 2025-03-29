@@ -30,7 +30,7 @@ function createTask(){
 </script>
 
 <template>
-  <form @submit="createTask" class="is-flex is-align-items-flex-start is-align-items-center"  style="gap: 1rem;">
+  <form @submit.prevent="createTask" class="is-flex is-align-items-flex-start is-align-items-center"  style="gap: 1rem;">
     <button class="button btn-primary">Add New Item</button>
 
     <div class="field mb-2">

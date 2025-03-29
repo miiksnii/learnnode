@@ -59,8 +59,8 @@ function editTask(el) {
         
     */
 
-
-      //editing the task code        
+      //editing the task code  
+      console.log(el);      
       const id = el.id
           fetch(`https://demo2.z-bit.ee/tasks/${id}`, {
             method: "PUT",
@@ -75,7 +75,7 @@ function editTask(el) {
           .then(val => {
             console.log(val);
           }).catch(err => console.log(err));
-          console.log(el);
+          
 }
 
 </script>

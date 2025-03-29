@@ -1,14 +1,23 @@
 <script setup>
 
-import {ref} from 'vue';
+import { ref } from 'vue';
 
 const props = defineProps(['tasks']);
 const emit = defineEmits(['update:edit', 'delete'])
 
 
-let isEdit = ref(props.tasks + 1);
-
+let isEdit = ref(-1);
 let isDone = ref(false);
+
+function returnData(index){
+return {
+    index,
+    id: props.tasks[index].id,
+    title: document.getElementById(`title-${props.tasks[index].id}`).value,
+    desc: document.getElementById(`desc-${props.tasks[index].id}`).value,
+    marked_as_done: document.getElementById("checkbox").checked
+}}
+
 </script>
 
 <template>
@@ -16,13 +25,13 @@ let isDone = ref(false);
         <li v-for="(task, index) in tasks" class="column">
             <div class="card">
                 <header class="card-header">
-                    
-                        <div v-if="index != isEdit">
-                            <h1 class="card-header-title is-size-2 pt-4 px-5">{{ task.title }}</h1>
-                        </div>
-                        <div v-else>
-                            <h1><input type="text" class="is-size-2 pt-4 px-5" name='title' :value="task.title"></h1>
-                        </div>
+
+                    <div v-if="index != isEdit">
+                        <h1 class="card-header-title is-size-2 pt-4 px-5">{{ task.title }}</h1>
+                    </div>
+                    <div v-else>
+                        <input type="text" class="is-size-2 pt-4 px-5" :id="`title-${task.id}`" :value="task.title">
+                    </div>
                 </header>
                 <div class="card-content pt-3 px-5">
                     <div class="is-flex is-justify-content-space-between">
@@ -31,23 +40,22 @@ let isDone = ref(false);
                                 <p class="is-size-5 pb-5">{{ task.desc }}</p>
                             </div>
                             <div v-else>
-                                <input type="text" class="is-size-5 pb-5" name='desc' :value="task.desc">
+                                <input type="text" class="is-size-5 pb-5" :id="`desc-${task.id}`" :value="task.desc">
                             </div>
-                        
+
                         </div>
 
                         <label class="checkbox is-size-4">
                             COMPLETED
-                            <input type="checkbox" style="width: 1.5rem; height: 1.5rem;" v-model="isDone"/>
+                            <input type="checkbox" style="width: 1.5rem; height: 1.5rem;" id="checkbox" v-model="task.marked_as_done" />
                         </label>
                     </div>
                     <div class="mb-5">
                         <time class="is-size-6">Creation date: {{ task.created_at }}</time>
                     </div>
                     <footer class="card-footer">
-                        <button
-  v-if="isEdit == index" class="card-footer-item" @click="() => {emit('update:edit', { index, id:task.id, title: task.title, desc: task.desc, marked_as_done:isDone }); isEdit = -1}">Save</button>
-
+                        <button v-if="isEdit == index" class="card-footer-item"
+                            @click="() => {isEdit=-1; emit('update:edit', returnData(index));}">Save</button>
                         <button v-if="isEdit != index" class="card-footer-item" @click="isEdit = index">Edit</button>
 
                         <button class="card-footer-item" @click="emit('delete', index)">Delete</button>
@@ -57,4 +65,3 @@ let isDone = ref(false);
         </li>
     </ul>
 </template>
-
