@@ -8,7 +8,7 @@ import Tabs from './components/Tabs.vue';
 const isCurriculumVisible = ref(false);
 
 
-
+let token = ref(0);
 let active = ref(-1);
 let user_data = {
     auth_token: ""
@@ -32,25 +32,30 @@ function startEvent(key) {
     tabs[key].event();
 }
 
-let token = ref(0);
+function setToken(val){
+    token.value = val;
+    
+}
+
+
 </script>
 
 <template>
 
     <Tabs :tabs="tabs" :active="active" @update:active="updateActive" @update:eventKey="startEvent"/>
-
     <div class="container mt-5">
         <!-- login area -->
         <div class="box" :class="{ 'is-hidden': !isCurriculumVisible }">
             <!-- Item 1 -->
             <div class="collapsible-item is-flex is-justify-content-center is-align-items-center">
-                <Login @auth="val => token = val"/>
+                <Login @auth="setToken"/>
             </div>
         </div>
 
         <!-- Tasks box -->
-        <div class="box tasks">
+        <div class="box tasks">            
             <Tasks :token="token"></Tasks>
+            
         </div>
     </div>
 </template>

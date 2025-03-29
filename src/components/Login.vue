@@ -1,8 +1,8 @@
 <script setup>
 
-const url = "https://demo2.z-bit.ee/"
+const url = "https://demo2.z-bit.ee/users/get-token"
 
-defineEmits(['auth']);
+const emit = defineEmits(['auth']);
 
 //prevent login button from working
 const handleLogin = (e,) => {
@@ -16,14 +16,16 @@ const handleLogin = (e,) => {
     }
 
     //gets the users token
-    fetch(url + "/users/get-token", {
+    fetch(url, {
     method: "POST", // or "POST"
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
 })
   .then(res => res.json())
   .then(data => { 
     //send the access token upwards
     emit("auth", data.access_token);
+
    })
   .catch(err => { console.log(err);});
 
