@@ -1,27 +1,31 @@
 <script setup>
 import { ref } from 'vue';
 import Login from './components/Login.vue';
+import Signin from './components/Signin.vue';
 import Tasks from './components/Tasks.vue';
 import Tabs from './components/Tabs.vue';
 
 // State to control the visibility of the curriculum box
-const isCurriculumVisible = ref(false);
-
+const isLoginBoxActive = ref(false);
+const isSigninBoxActive = ref(false);
 
 let token = ref(0);
 let active = ref(-1);
-let user_data = {
-    auth_token: ""
-}
+let refreshTasks = ref(0);
 
 // Toggle function to change visibility
-const toggleCurriculumBox = () => {
-    isCurriculumVisible.value = !isCurriculumVisible.value;
+const toggleLoginBox = () => {
+    isLoginBoxActive.value = !isLoginBoxActive.value;
 };
 
-let tabs = [
-    { name: "Login", event: toggleCurriculumBox },
+const toggleSigninBox = () => {
+    isSigninBoxActive.value = !isSigninBoxActive.value;
+};
 
+
+let tabs = [
+    { name: "Login", event: toggleLoginBox },
+    { name: "Sign in", event: toggleSigninBox },
 ];
 
 function updateActive(val) {
@@ -33,10 +37,10 @@ function startEvent(key) {
 }
 
 function setToken(val){
-    token.value = val;
-    
-}
+    token.value = val;  
+    //refresh tasks
 
+}
 
 </script>
 
@@ -45,16 +49,24 @@ function setToken(val){
     <Tabs :tabs="tabs" :active="active" @update:active="updateActive" @update:eventKey="startEvent"/>
     <div class="container mt-5">
         <!-- login area -->
-        <div class="box" :class="{ 'is-hidden': !isCurriculumVisible }">
+        <div class="box" :class="{ 'is-hidden': active != 0 }">
             <!-- Item 1 -->
             <div class="collapsible-item is-flex is-justify-content-center is-align-items-center">
                 <Login @auth="setToken"/>
             </div>
         </div>
+        <div class="box" :class="{ 'is-hidden': active != 1 }">
+            <!-- Item 1 -->
+            <div class="collapsible-item is-flex is-justify-content-center is-align-items-center">
+                <Signin @auth="setToken" />
+            </div>
+        </div>
 
+        
+    
         <!-- Tasks box -->
         <div class="box tasks">            
-            <Tasks :token="token"></Tasks>
+            <Tasks :token="token" :key="refreshTasks"></Tasks>
             
         </div>
     </div>
@@ -82,15 +94,17 @@ function setToken(val){
 <style>
 /* Transition effect for button */
 .button {
+    background-color: #22a800;
+    color: rgb(0, 0, 0);
     transition: all 0.3s ease;
+    color: white;
     /* Smooth transition for all properties */
 }
 
 .button:hover {
-    transform: scale(1.05);
+    transform: scale(1.1);
     /* Make the button slightly bigger on hover */
     background-color: #007bff;
     /* Darker blue background on hover */
-    color: white;
-}
+    }
 </style>

@@ -30,7 +30,7 @@ return {
                         <h1 class="card-header-title is-size-2 pt-4 px-5">{{ task.title }}</h1>
                     </div>
                     <div v-else>
-                        <input type="text" class="is-size-2 pt-4 px-5" :id="`title-${task.id}`" :value="task.title">
+                        <input type="text" class="is-size-2 pt-4 px-5" :id="`title-${task.id}`" v-model="task.title">
                     </div>
                 </header>
                 <div class="card-content pt-3 px-5">
@@ -40,9 +40,8 @@ return {
                                 <p class="is-size-5 pb-5">{{ task.desc }}</p>
                             </div>
                             <div v-else>
-                                <input type="text" class="is-size-5 pb-5" :id="`desc-${task.id}`" :value="task.desc">
+                                <input type="text" class="is-size-5 pb-5" :id="`desc-${task.id}`" v-model="task.desc">
                             </div>
-
                         </div>
 
                         <label class="checkbox is-size-4">
