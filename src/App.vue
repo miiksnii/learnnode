@@ -38,8 +38,6 @@ function startEvent(key) {
 
 function setToken(val){
     token.value = val;  
-    //refresh tasks
-
 }
 
 </script>
