@@ -32,7 +32,6 @@ let todoItems = computed(() => {
 </script>
 
 <template>
-  <div class="container mt-2">
     <div class="field has-addons">
       <div class="control">
         <input type="text" class="input" v-model="message" @keypress.enter="addItem">
@@ -48,7 +47,6 @@ let todoItems = computed(() => {
       <ItemList :items="doneItems" title="Done Items"></ItemList>
       <ItemList :items="todoItems" title="Todo Items"></ItemList>
   </div>
-</div>
 </template>
 
 <style></style>
